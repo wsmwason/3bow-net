@@ -82,7 +82,7 @@ class YoutubeSpider extends Command
         }
 
         // 排除一些特定的關鍵字
-        if (strpos($this->getTitle($videoInfo), '三寶心法')!==false) {
+        if (strpos($this->getTitle($video), '三寶心法')!==false) {
             return;
         }
 
