@@ -44,6 +44,9 @@ Git clone web source
 
 建立 database 與設定 .env 請參考 [.env.example](https://github.com/wsmwason/3bow-net/blob/master/.env.example) 範例
 
+    chmod -R 777 storage
+    chmod -R 777 bootstrap/cache/
+
 初始化 database
 
     artisam migrate:install
