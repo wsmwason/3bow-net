@@ -1,6 +1,6 @@
 {
     "name": "wsmwason/3bow-net",
-    "description": "馬路三寶網站",
+    "description": "馬路三寶網站原始碼",
     "keywords": ["馬路三寶", "laravel"],
     "license": "MIT",
     "type": "project",
@@ -11,10 +11,10 @@
         "alaouy/youtube": "^1.2",
         "illuminate/html": "^5.0",
         "laravelcollective/html": "^5.2",
+        "barryvdh/laravel-ide-helper": "^2.1",
         "wsmwason/taiwan-news-parser": "^1.0"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
