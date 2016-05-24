@@ -141,7 +141,7 @@
         <footer class="text-center">
             <p>{{ config('app.url') }} 所有影片為 {{ Html::link('https://www.youtube.com/', 'YouTube', ['target' => '_blank']) }} 網路資源，若有版權問題請 <a href="/contact">與我們聯絡</a></p>
             <p>
-                GitHub Source (日後放上)
+                <a href="https://github.com/wsmwason/3bow-net" target="_blank">GitHub Source</a> .
                 <a href="{{ url('/about_us') }}">關於馬路三寶</a>
             </p>
             <p>
