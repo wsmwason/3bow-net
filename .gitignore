@@ -1,0 +1,14 @@
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
+.env
+.env.production
+_ide_helper.php
+public/assets/js/vendor
+.gitattributes
+composer.lock
+nbproject
+gulpfile.js
+package.json

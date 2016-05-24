@@ -1,0 +1,21 @@
+{
+  "name": "3bow.net",
+  "description": "馬路三寶",
+  "main": "",
+  "authors": [
+    "wsmwason <wsmwason@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/assets/js/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-social": "^5.0.0"
+  }
+}
