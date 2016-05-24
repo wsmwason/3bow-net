@@ -1,10 +1,10 @@
 # 馬路三寶 3bow.net
 
-馬路三寶網站原始碼，Based on [Laravel Framework](https://laravel.com/) 5.2。
+[馬路三寶](https://3bow.net) 網站原始碼，Based on [Laravel Framework](https://laravel.com/) 5.2。
 
 ### 關於網站
 
-這個馬路三寶網站主要是為了
+這個馬路三寶網站主要是為了揭露並警惕駕駛人有正確的駕駛觀念，讓交通更順暢美好（？）
 
 ##### 什麼是馬路三寶？
 
@@ -30,7 +30,7 @@
  * Node (With Bower)
  * Apache/Nginx
  * YouTube API key access
- * Facebook application API (For login)
+ * Facebook Application ID and key (For login)
 
 ### 安裝佈署環境
 
@@ -50,11 +50,13 @@ Git clone web source
     artisam migrate
     artisam db:seed
 
-Javascript vendor
+Javascript vendors
 
     bower install
 
 ### 使用方式
+
+目前會員系統直接使用 Facebook 登入，沒有另外的密碼設定，認證成功後僅能發表影片，新聞的部份必須要是 admin 管理者權限才能新增。
 
 ### 貢獻
 
