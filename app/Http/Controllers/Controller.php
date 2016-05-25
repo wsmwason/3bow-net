@@ -24,13 +24,15 @@ class Controller extends BaseController
         $this->setPageNavKeyword();
     }
 
-    public function setPageTitle($title)
+    public function setPageTitle($title = '')
     {
         if (!is_array($title)) {
             $title = [$title];
         }
         $title = array_reverse($title);
-        $title[] = config('site.name');
+        if ($this->getRouter()->getCurrentRequest()->getRequestUri() != '/') {
+            $title[] = config('site.name');
+        }
         foreach ($title as $key => $val) {
             $title[$key] = strip_tags($val);
         }
