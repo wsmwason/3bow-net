@@ -73,17 +73,19 @@
             ga('send', 'pageview');
         </script>
 
-        <nav class="navbar navbar-default navbar-static-top">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        馬路三寶
-                    </a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url('/') }}">馬路三寶</a>
                 </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
+                <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         @foreach (config('video.nav_keywords') as $keyword)
                         <li{!! $keyword==$pageNavKeyword ? ' class="active"' : '' !!}><a href="{{ url('/videos/tag/'.$keyword) }}">{{ $keyword }}</a></li>
@@ -97,29 +99,31 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">登入</a></li>
-                            <li><a href="{{ url('/videos/create') }}">上傳影片</a></li>
+                        <li><a href="{{ url('/login') }}">登入</a></li>
+                        <li><a href="{{ url('/videos/create') }}">上傳影片</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    @if (Auth::user()->is_admin)
-                                    <li><a href="{{ url('/news/create') }}"><i class="fa fa-btn fa-edit"></i>建立新聞</a></li>
-                                    @endif
-                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>登出</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url('/videos/create') }}">上傳影片</a></li>
+                            <ul class="dropdown-menu" role="menu">
+                                @if (Auth::user()->is_admin)
+                                <li><a href="{{ url('/news/create') }}"><i class="fa fa-btn fa-edit"></i>建立新聞</a></li>
+                                @endif
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>登出</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ url('/videos/create') }}">上傳影片</a></li>
                         @endif
                     </ul>
-                </div>
+                </div><!--/.nav-collapse -->
+
+
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container main-container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="dba_a">
@@ -139,7 +143,7 @@
         </div>
 
         <footer class="text-center">
-            <p>{{ config('app.url') }} 所有影片為 {{ Html::link('https://www.youtube.com/', 'YouTube', ['target' => '_blank']) }} 網路資源，若有版權問題請 <a href="/contact">與我們聯絡</a></p>
+            <p>{{ parse_url(config('app.url'))['host'] }} 所有影片為 {{ Html::link('https://www.youtube.com/', 'YouTube', ['target' => '_blank']) }} 網路資源，若有版權問題請 <a href="/contact">與我們聯絡</a></p>
             <p>
                 <a href="https://github.com/wsmwason/3bow-net" target="_blank">GitHub Source</a> .
                 <a href="{{ url('/about_us') }}">關於馬路三寶</a>

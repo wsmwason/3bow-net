@@ -2,8 +2,14 @@
 body {
   font-family: 'Noto Sans TC', sans-serif; }
 
+.main-container {
+  margin-top: 70px; }
+
 .fa-btn {
   margin-right: 6px; }
+
+.fb-page {
+  margin-bottom: 16px; }
 
 .fb-like-top {
   margin-top: 15px;
