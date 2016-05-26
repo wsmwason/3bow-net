@@ -27,6 +27,7 @@
  * PHP>=5.5.9
  * MySQL/MariaDB
  * Composer
+ * SASS
  * Node (With Bower)
  * Apache/Nginx
  * YouTube API key access
@@ -65,7 +66,18 @@ Javascript vendors
 
 歡迎提交 pull request 修正 issue 或新增其他功能。
 
-### 開發者碎歲唸
+### TODO
+
+ * 直接從網站上傳影片並透過 YouTube API 到指定帳號
+ * 三寶指數 Rating
+ * 一些考到駕照本來就要知道的交通規則（考古題？）
+ * 一些交通罰則的說明
+ * 人眼辨識回報系統
+   * 開放回報辨識車牌
+   * 開放回報辨識事發地點
+ * 偵測若影片已經被刪除時也要刪除該條記錄（或是放到已刪除區）
+
+### 開發者碎碎唸
 
 我只是個 Developer，首次把自己的 web 專案 open source 出來，將朋友的這個 idea 具現化為一個實體網站，並非什麼正義魔人、正義之士，希望大家快快樂樂出門，平平安安回家。
 
