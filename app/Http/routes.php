@@ -32,6 +32,7 @@ Route::get('/contact/success', [
 
 Route::get('/about_us', 'WelcomeController@aboutUs');
 
-Route::auth();
-Route::get('/login/facebook', 'Auth\SocialAuthController@loginWithFacebook');
-Route::get('/login/callback/facebook', 'Auth\SocialAuthController@loginWithFacebookCallback');
+Route::get('login', 'Auth\AuthController@showLoginForm');
+Route::get('logout', 'Auth\AuthController@logout');
+Route::get('login/facebook', 'Auth\SocialAuthController@loginWithFacebook');
+Route::get('login/callback/facebook', 'Auth\SocialAuthController@loginWithFacebookCallback');

@@ -17,23 +17,35 @@ class SocialAuthController extends Controller
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function loginWithFacebookCallback()
+    public function loginWithFacebookCallback(Request $request)
     {
-        $providerUser = Socialite::driver('facebook')->user();
-        $user = User::whereEmail($providerUser->getEmail())->first();
+        try {
+            $providerUser = Socialite::driver('facebook')->user();
+            $user = User::whereEmail($providerUser->getEmail())->first();
 
-        if (!$user) {
-            $user = User::create([
-                'email' => $providerUser->getEmail(),
-                'name' => $providerUser->getName(),
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook',
-            ]);
+            if (!$user) {
+                $user = User::create([
+                    'email' => $providerUser->getEmail(),
+                    'name' => $providerUser->getName(),
+                    'provider_user_id' => $providerUser->getId(),
+                    'provider' => 'facebook',
+                ]);
+            }
+
+            auth()->login($user);
+
+            if ($request->session()->get('referer')) {
+                $refererUrl = $request->session()->get('referer');
+                if (strpos($refererUrl, 'login') === false) {
+                    $request->session()->forget('referer');
+                    return redirect($refererUrl);
+                }
+            }
+
+            return redirect('/videos/create');
+        } catch (\Exception $ex) {
+            return redirect()->to('/');
         }
-
-        auth()->login($user);
-
-        return redirect()->to('/videos/create');
     }
 
 }
