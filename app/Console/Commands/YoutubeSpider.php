@@ -43,7 +43,6 @@ class YoutubeSpider extends Command
         $this->findKeywords('三寶 闖紅燈 -新聞 -試駕');
         $this->findKeywords('並排 違規 -新聞 -試駕');
         $this->findKeywords('計程車 違規 -新聞 -試駕');
-        $this->findKeywords('不開大燈 -新聞 -試駕 -來自星星的事');
         $this->findKeywords('逆向 三寶 -新聞 -試駕');
         $this->findKeywords('開車門 三寶 -新聞 -試駕');
 
