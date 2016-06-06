@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Alaouy\Youtube\Youtube;
+use TrafficBow\SearchKeyword;
 use TrafficBow\Video;
 
 class YoutubeSpider extends Command
@@ -37,15 +38,10 @@ class YoutubeSpider extends Command
      */
     public function handle()
     {
-        $this->findKeywords('三寶 -新聞 -試駕');
-        $this->findKeywords('行車記錄 違規 -新聞 -試駕');
-        $this->findKeywords('三寶 行車 -新聞 -試駕');
-        $this->findKeywords('三寶 闖紅燈 -新聞 -試駕');
-        $this->findKeywords('並排 違規 -新聞 -試駕');
-        $this->findKeywords('計程車 違規 -新聞 -試駕');
-        $this->findKeywords('逆向 三寶 -新聞 -試駕');
-        $this->findKeywords('開車門 三寶 -新聞 -試駕');
-
+        $searchKeywords = SearchKeyword::all();
+        foreach ($searchKeywords as $searchKeyword) {
+            $this->findKeywords($searchKeyword->keyword);
+        }
     }
 
     protected function findKeywords($keyword)
@@ -75,13 +71,8 @@ class YoutubeSpider extends Command
 
         $this->comment($video->snippet->title);
 
-        $count = Video::where('source_id', $video->id->videoId)->count();
+        $count = Video::withTrashed()->where('source_id', $video->id->videoId)->count();
         if ($count > 0) {
-            return;
-        }
-
-        // 排除一些特定的關鍵字
-        if (strpos($this->getTitle($video), '三寶心法')!==false) {
             return;
         }
 
@@ -96,7 +87,7 @@ class YoutubeSpider extends Command
           'year' => substr($videoInfo->snippet->publishedAt, 0, 4),
         ]);
 
-        $this->comment($video->id->videoId.' saved');
+        $this->comment('  ' . $video->id->videoId . ' saved');
     }
 
     protected function getLicensePlate($videoInfo)
@@ -104,7 +95,7 @@ class YoutubeSpider extends Command
         $licensePlate = '';
 
         $allText = $videoInfo->snippet->title . $videoInfo->snippet->description;
-        if (preg_match('#[A-Z]{2,3}-[\d]{4}#', $allText, $matchPlate)) {
+        if (preg_match('#[A-Z0-9]{2,3}-[\d]{4}#', $allText, $matchPlate)) {
             return $matchPlate[0];
         }
 
@@ -128,6 +119,9 @@ class YoutubeSpider extends Command
         $title = str_replace('行車紀錄', '', $title);
         $title = preg_replace('#『(.*?)』#u', '', $title);
         $title = preg_replace('#\[(.*?)\]#', '', $title);
+        $title = preg_replace('#^-#', '', $title);
+        $title = preg_replace('#^_#', '', $title);
+        $title = trim($title);
         return $title;
     }
 
