@@ -14,7 +14,7 @@ class YoutubeSpider extends Command
      *
      * @var string
      */
-    protected $signature = 'youtube:spider {--rows=3} {--days=0}';
+    protected $signature = 'youtube:spider {--rows=3} {--days=2}';
 
     /**
      * The console command description.
