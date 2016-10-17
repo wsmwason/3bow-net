@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Alaouy\Youtube\Youtube;
 use TrafficBow\SearchKeyword;
+use TrafficBow\ExcludeKeyword;
 use TrafficBow\Video;
 
 class YoutubeSpider extends Command
@@ -25,10 +26,22 @@ class YoutubeSpider extends Command
 
     protected $youtube;
 
+    /**
+     * 排除關鍵字
+     *
+     * @var array
+     */
+    protected $excludeKeywords = [];
+
     public function __construct()
     {
         parent::__construct();
         $this->youtube =  new Youtube(config('youtube.api_key'));
+
+        $excludeKeywords = ExcludeKeyword::all();
+        foreach ($excludeKeywords as $excludeKeyword) {
+            $this->excludeKeywords[] = $excludeKeyword->keyword;
+        }
     }
 
     /**
@@ -68,15 +81,23 @@ class YoutubeSpider extends Command
     {
         $this->comment($video->id->videoId . ':' . $video->snippet->title);
 
-
-        $this->comment($video->snippet->title);
-
         $count = Video::withTrashed()->where('source_id', $video->id->videoId)->count();
         if ($count > 0) {
+            $this->comment('  exists');
             return;
         }
 
         $videoInfo = $this->youtube->getVideoInfo($video->id->videoId);
+
+        // 排除特定關鍵字
+        $allText = $videoInfo->snippet->title . $videoInfo->snippet->description;
+        foreach ($this->excludeKeywords as $keyword) {
+            if (strpos($allText, $keyword)!==false) {
+                $this->comment('  exclude keyword ' . $keyword);
+                return;
+            }
+        }
+
         Video::create([
           'source_site' => Video::SOURCE_SITE_YOUTUBE,
           'source_id' => $video->id->videoId,
