@@ -37,11 +37,6 @@ class YoutubeSpider extends Command
     {
         parent::__construct();
         $this->youtube =  new Youtube(config('youtube.api_key'));
-
-        $excludeKeywords = ExcludeKeyword::all();
-        foreach ($excludeKeywords as $excludeKeyword) {
-            $this->excludeKeywords[] = $excludeKeyword->keyword;
-        }
     }
 
     /**
@@ -51,6 +46,11 @@ class YoutubeSpider extends Command
      */
     public function handle()
     {
+        $excludeKeywords = ExcludeKeyword::all();
+        foreach ($excludeKeywords as $excludeKeyword) {
+            $this->excludeKeywords[] = $excludeKeyword->keyword;
+        }
+        
         $searchKeywords = SearchKeyword::all();
         foreach ($searchKeywords as $searchKeyword) {
             $this->findKeywords($searchKeyword->keyword);
